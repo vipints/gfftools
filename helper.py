@@ -356,6 +356,6 @@ def print_exon_line(tinfo, out_file):
                             '.',
                             'Parent=%s' % tid[0]]
 
-                print '\t'.join(out_print) # - exon line  
+                sys.stdout.write('\t'.join(out_print)+"\n") # - exon line  
 
 

@@ -204,6 +204,7 @@ def Parse(ga_file):
         parent_map, child_map = create_missing_feature_type(parent_map, child_map)    
     
     # connecting parent child relations  
+    # essentially the parent child features are here from any type of GTF/GFF2/GFF3 file
     gene_mat = format_gene_models(parent_map, child_map) 
 
     return gene_mat 

@@ -522,15 +522,21 @@ def GFFWriter(gtf_content, out_file="out.gff"):
     for ent1 in gtf_content:
         chr_name = ent1['chr']
         strand = ent1['strand']
-        start = ent1['start']
-        stop = ent1['stop']
         source = ent1['source']
         ID = ent1['name']
         Name = ent1['gene_info']['Name']
         Name = ID if not Name else Name 
 
+        gene_start = [] 
+        gene_stop = [] 
+        for idx, tid in enumerate(ent1['transcripts']):
+            gene_start.append(ent1['exons'][idx][0][0])
+            gene_stop.append(ent1['exons'][idx][-1][-1])
+        gene_start.sort() 
+        gene_stop.sort() 
+
         outfh.write('%s\t%s\tgene\t%d\t%d\t.\t%s\t.\tID=%s;Name=%s\n' \
-            % (chr_name, source, start, stop, strand, ID, Name))
+            % (chr_name, source, gene_start[0], gene_stop[-1], strand, ID, Name))
 
         for idx, tid in enumerate(ent1['transcripts']):
             t_start = ent1['exons'][idx][0][0]
